@@ -122,7 +122,7 @@ matplotlib.use("Agg")
 from matplotlib import pyplot as plt
 import matplotlib.patches as mpatches
 from numpy import arange, mean, zeros, quantile, concatenate, median, std, cov, corrcoef, array, linspace, polyfit
-from scipy.stats.stats import pearsonr, spearmanr, kendalltau
+from scipy.stats import spearmanr
 from scipy import stats
 from scipy.signal import savgol_filter
 from random import seed, randint
@@ -564,9 +564,9 @@ def doScatter(outname, stype, l, s, mpeak, msplash, outcorr, pdata, colors):
         elif l == "normalized":
             peak = [i/mpeak for i in peak]
             splash = [i/msplash for i in splash]
-        pear = pearsonr(peak,splash)
+        #pear = pearsonr(peak,splash)
         spear = spearmanr(peak,splash)
-        kendl = kendalltau(peak,splash)
+        #kendl = kendalltau(peak,splash)
         #outcorr.write(f"{seg}\t{typ}\t{dname}\t{pear[0]}\t{pear[1]}\t{spear[0]}\t{spear[1]}\t{kendl[0]}\t{kendl[1]}\n")
         outcorr.write(f"{seg}\t{typ}\t{dname}\t{spear[0]}\t{spear[1]}\n")
         #print(corrcoef([i/mpeak for i in peak_extrema],[i/msplash for i in splash_extrema]))
