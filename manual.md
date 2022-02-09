@@ -1,70 +1,113 @@
-# flexibleRegions - manual
+# <samp>hotspotProfiles</samp> - manual
+
+***
 
 ## Usage
 ```
-flexibleRegions.py -fsa <in_fasta> -pfx <out_prefix> [options]
+hotspotProfiles.py -fsa <in_fasta> -pfx <out_prefix> [options]
 ```
 
 ## Version
 ```
-flexibleRegions.py 0.0.1 (alpha)
+hotspotProfiles.py 0.0.1 (alpha)
 ```
 
 ## Dependencies
-```python v3.7.1```, ```ViennaRNA v2.4.13```
+```Python v3.9.7```, ```Scipy v1.8.0```, ```NumPy v1.22.2```, ```Matplotlib v3.5.1```
 
 ## Description
-```flexibleRegions``` reduces the interaction strength between a given area of the first sequence in regard to all other sequences. The tool is written in ```Python 3.7.1``` and the calculations are performed with the ```RNAcofold``` python site-package of the ```ViennaRNA Package 2.4.13```.
+<samp>hotspotProfiles</samp> evaluates vRNAsite like interaction tables and creates hotspot profiles for each individual sequence, showing regions with high interaction counts. Example call: python hotspotProfiles.py -pfx example -vst example.tsv -ovr
 
 ## Options
 ```
 --prefix,-pfx
     output directory and prefix for result files
 
---fasta,-fsa
-    fasta with all sequences; the first sequence has to be the short sequence 
-    snipped which has to be deoptimized with all following sequences
+--vRNAsite,-vst
+    input vRNAsite table
 
---positionStart,-pss
-    define the starting position of the sequence part which should be 
-    deoptimized (default: 0)
+--candidatePeak,-cdp
+    define minimum peak MFE value (default: -10.0)
 
---positionEnd,-pse
-    define the ending position of the sequence part which should be deoptimized;
-    a 0 will be interpreted as the end of the sequence (default: 0)
+--candidateMFE,-cdm
+    define minimum MFE value (default: -10.0)
 
---seed,-sed
-    set the seed for random (default: 0)
+--candidateSPLASH,-cds
+    define the minimum SPLASH count value (default: 0)
 
---reverse,-rev
-    creates reverse of each strain if set (default: False)
+--candidateLength,-cdl
+    minimum length for an interaction (default: 5)
 
---complement,-cmp
-    creates complements of each strain if set (default: False)
+--intra,-tra
+    do intra molecular interactions from vRNAsite predictions (default: False)
 
---threads,-thr
-    number of threads to use for RNAcofold (default: 1)
+--plotSize,-pls
+    defines the plot size modifier (default: 1.0)
 
---slice,-slc
-    window size for standard window search or minimum length for a seed to be
-    accepted if the seed option is specified (default: 20)
+-xTickScale,-xts
+    set x tick scale (default: 50)
 
---candidateIncrease,-cdi
-    increases the energy of the top candidate if there is no possible mutation
-    candidate (default: 1.0)
-
---candidateStop,-cds
-    stopping energy for deoptimization (default: -10.0)
-
---candidateIteration,-cdt
-    tries to increase the cdi value at high iteration numbers (default: 1000)
+-yTickScale,-yts
+    set y tick scale (default: 0.10)
 
 --overwrite,-ovr
     overwrite data with folder named in prefix (default: False)
 
---dangles,-dng
-    use dangling ends for foldings (default: 2) (choices: 0,1,2,3)
+--namingExtension,-nex
+    use this parameter as an extension for naming; possible are peak, mfe, 
+    length, splash (default: "")
 
---noLP,-nlp
-    disable lonely pairs for RNAcofold (default: False)
+--loadMatrix,-mat
+    load vRNAsite matrix data (default: )
+
+--loadShapeMap,-lsh
+    load shape map data (default: )
+
+--quantilePeakMatrix,-qtp
+    define threshold for peak matrix (default: 0.01)
+
+--quantileSplashMatrix,-qts
+    define threshold for splash matrix (default: 0.01)
+
+--quantileDistribution,-pqd
+    plot quantile distribution (default: False)
+
+--quantileDistributionList,-pql
+    set quantile distribution list (default: 0.1,0.05,0.01,0.005,0.001,0.0005,0.0001)
+
+--rollingSHAPE,-rls
+    use sliding window to calculate median SHAPE data (default: 1)
+
+--rollingSHAPEIteration,-rli
+    number of rolling iterations (default: 1)
+
+--nameSHAPE,-nsh
+    use alternative SHAPE name for plots (default: shape)
+
+--subsetSequences,-sub
+    only use a subset of sequences for analysis; these should match the aSeq and 
+    bSeq columns and should be divided by commas (default: )
+
+--createScatter,-csc
+    creates a scatter plot for every segment (default: False)
+
+--noPeakSmoothing,-nps
+    deactivate peak smoothing (default: False)
+
+--MFEasPeak,-mpk
+    use mfe values instead of peak values (default: False)
+
+--setTitle,-stt
+    set title for plots (default: "")
+
+--fixedLogMax,-lmx
+    use fixed maximum log for plotting (default: 0)
+```
+
+## References
+```
+D. Desirò, A. Borodavka and M. Marz.
+"HotspotProfiles: Prediction of hotspot regions capable of mediating the selective but flexible genome packaging of influenza A viruss."
+In Preparation, 2022.
+https://github.com/desiro/hotspotProfiles
 ```

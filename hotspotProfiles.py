@@ -9,7 +9,7 @@ version
     hotspotProfiles.py 0.0.1 (alpha)
 
 dependencies
-    Scipy v1.8.0, NumPy v1.22.2, Matplotlib v3.5.1
+    Python v3.9.7, Scipy v1.8.0, NumPy v1.22.2, Matplotlib v3.5.1
 
 description
     Evaluates vRNAsite like interaction tables and creates hotspot profiles for 
@@ -102,7 +102,10 @@ description
     use fixed maximum log for plotting (default: 0)
 
 reference
-    Reference.
+    D. Desirò, A. Borodavka and M. Marz.
+    "HotspotProfiles: Prediction of hotspot regions capable of mediating the selective but flexible genome packaging of influenza A viruss."
+    In Preparation, 2022.
+    https://github.com/desiro/hotspotProfiles
 """
 
 import argparse as ap

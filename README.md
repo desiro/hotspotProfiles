@@ -1,30 +1,64 @@
-# flexibleRegions
+# [<samp>hotspotProfiles</samp>](https://github.com/desiro/hotspotProfiles)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-bd0000.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Python v3.9.7](https://img.shields.io/badge/Language-Python_v3-75a8d3.svg)](https://www.python.org/)
+[![Conda v4.11.0](https://img.shields.io/badge/Uses-Conda-43b02a.svg)](https://docs.conda.io/en/latest/miniconda.html)
 
-```flexibleRegions``` reduces the interaction strength between a given area of the first sequence in regard to all other sequences. The tool is written in ```Python 3.7.1``` and the calculations are performed with the ```RNAcofold``` python site-package of the ```ViennaRNA Package 2.4.13```. For command-line options, please refer to the [manual](https://github.com/desiro/flexibleRegions/blob/master/manual.md)
+***
 
-## Mandatory Prerequisites
+## Description
 
-* [python 3.7.1](https://www.python.org/downloads/release/python-385/)
-* [viennaRNA 2.4.13](https://www.tbi.univie.ac.at/RNA/documentation.html#install)
+This tool evaluates vRNAsite like interaction tables and creates hotspot profiles for each individual sequence, showing regions with high interaction counts.
 
-## Optional Prerequisites
+### Mandatory Prerequisites
 
-* [Miniconda3](https://docs.conda.io/en/latest/miniconda)
+* [![Python v3.9.7](https://img.shields.io/badge/Python_v3.9.7-75a8d3.svg)](https://www.python.org/downloads/release/python-397/)
+* [![NumPy v1.22.2](https://img.shields.io/badge/NumPy_v1.22.2-013243.svg)](http://www.numpy.org/)
+* [![Matplotlib v3.5.1](https://img.shields.io/badge/Matplotlib_v3.5.1-11557c.svg)](https://matplotlib.org/)
+* [![Scipy v1.8.0](https://img.shields.io/badge/Scipy_v1.8.0-013243.svg)](https://scipy.org/)
 
-## Installation with Miniconda
+### Optional Prerequisites
 
-Please download the [Miniconda3](https://docs.conda.io/en/latest/miniconda.html) application for your system. The following will demonstrate the installation and set up of miniconda on Linux, which should be similar on other platforms.
+* [![Conda v4.11.0](https://img.shields.io/badge/Conda_v4.11.0-43b02a.svg)](https://docs.conda.io/en/latest/miniconda.html)
 
+***
+
+## Installation
+
+To run <samp>hotspotProfiles</samp>, I recommend using Miniconda and following the steps below. If this is the first time using conda, you should probably restart your shell after the installation of Miniconda. The following will demonstrate the installation and set up of Miniconda on Linux, which should be similar on other platforms. For Windows 10 users, I advise using the [Ubuntu 20.04 LTS](https://www.microsoft.com/en-us/p/ubuntu-2004-lts/9n6svws3rx71?cid=msft_web_chart) subsystem. More information can be found on the [Miniconda](https://docs.conda.io/en/latest/miniconda.html) and [Bioconda](https://bioconda.github.io/user/install.html) pages.
+
+### Conda Installation
+
+Installing Miniconda:
 ```
-bash Miniconda3-latest-Linux-x86_64.sh -p ~/miniconda3
-conda create --name flexibleRegions
-conda activate flexibleRegions
-conda install -c bioconda viennarna
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
 ```
+
+Updating Miniconda and setting channels:
+```
+conda update conda
+conda update python
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+```
+
+Installing Conda packages:
+```
+conda create --name hotspotProfiles python=3.9.7
+conda activate hotspotProfiles
+conda install -c conda-forge numpy=1.22.2
+conda install -c conda-forge matplotlib=3.5.1
+conda install -c conda-forge scipy=1.8.0
+git clone https://github.com/desiro/hotspotProfiles.git
+cd hotspotProfiles
+```
+
+***
 
 ## Examples
 
-The basic input for ```flexibleRegions.py``` includes the following parameters:
+The basic input for ```hotspotProfiles.py``` includes the following parameters:
 * ```-pfx``` - name of the output folder
 * ```-fsa``` - input fasta file
 
@@ -35,8 +69,14 @@ The tool always takes the first sequence in the fasta file as the target mutatio
 ### Basic Example
 
 ```
-python3 flexibleRegions.py -pfx example -fsa example.fa -pss 32 -pse 96 -thr 4 -ovr 
+python hotspotProfiles.py -pfx example -vst example.tsv -ovr
 ```
+
+### Options
+
+For more command line options, see the [manual](https://github.com/desiro/hotspotProfiles/blob/master/manual.md).
+
+***
 
 ## Authors
 
@@ -48,8 +88,10 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 ## Reference
 
-Please cite [flexibleRegions](https://doi.org/10.1101/424002) if you find our tool useful.
+Please cite <samp>HotspotProfiles</samp> if you find our tool useful.
 
-## Workflow overview
-
-![workflow](https://github.com/desiro/flexibleRegions/blob/master/workflow.png "(a) creates all k-mers of the query and target sequences (b) predicts structures with RNAcofold between all query and all target k-mers (c) iteratively takes the query k-mer that has the most stable structure with a target k-mer as the regress query k-mer (d) creates all three nucleotide mutations of the middle nucleotide in the regress query and predicts structures with RNAcofold between all three mutants and all target k-mers (e.1) penalizes the current most stable query k-mer if there is no regress query k-mer mutant less stable than the original (e.2) or otherwise takes the regress query k-mer mutant with the least stable structure, replaces it with the original and recalculates all query k-mers that share the mutated nucleotide (f) terminates and returns the mutant query sequence if there is no query k-mer that is more stable than the predefined stopping energy threshold")
+```
+D. Desirò, A. Borodavka and M. Marz.
+"HotspotProfiles: Prediction of hotspot regions capable of mediating the selective but flexible genome packaging of influenza A viruss."
+In Preparation, 2022.
+```
